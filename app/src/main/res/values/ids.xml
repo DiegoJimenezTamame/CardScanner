@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="capturedCardImage" type="id" />
+    <item name="scanCardButton" type="id" />
+    <item name="capturedCardImageView" type="id" />
+</resources>
