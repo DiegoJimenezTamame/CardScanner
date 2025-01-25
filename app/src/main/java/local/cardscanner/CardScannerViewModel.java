@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class CardScannerViewModel extends ViewModel {
-    private MutableLiveData<CardResponse> recognizedCard = new MutableLiveData<>();
-    private MutableLiveData<String> errorMessage = new MutableLiveData<>();
-    private ApiCallManager apiCallManager = new ApiCallManager();
+    private final MutableLiveData<CardResponse> recognizedCard = new MutableLiveData<>();
+    private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
+    private final ApiCallManager apiCallManager = new ApiCallManager();
 
     public void processCardImage(Bitmap cardImage) {
         // Placeholder for image recognition logic
