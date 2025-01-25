@@ -3,4 +3,10 @@
     <item name="capturedCardImage" type="id" />
     <item name="scanCardButton" type="id" />
     <item name="capturedCardImageView" type="id" />
+    <item name="action_bar_activity_content" type="id"/>
+    <item name="progress_circular" type="id"/>
+    <item name="progress_horizontal" type="id"/>
+    <item name="split_action_bar" type="id"/>
+    <item name="up" type="id"/>
+    <item name="textHome" type="id">text home</item>
 </resources>

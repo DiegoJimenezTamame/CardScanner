@@ -7,14 +7,19 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -98,19 +103,45 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    ProgressBar progressBar = findViewById(R.id.progressBar);
     private void observeCardRecognitionResults() {
-        viewModel.getRecognizedCard().observe(this, cardResponse -> {
-            if (cardResponse != null) {
-                Intent detailIntent = new Intent(this, CardDetailActivity.class);
-                detailIntent.putExtra("CARD_NAME", cardResponse.getName());
-                startActivity(detailIntent);
+        progressBar.setVisibility(View.VISIBLE);
+        viewModel.getRecognizedCardName().observe(this, cardName -> {
+            progressBar.setVisibility(View.GONE);
+            if (cardName != null) {
+                fetchCardDetails((String) cardName);
             }
         });
 
         viewModel.getErrorMessage().observe(this, errorMessage -> {
-            if (errorMessage != null) {
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void fetchCardDetails(String cardName) {
+        ScryfallApiService apiService = ApiServiceManager.getScryfallApiService();
+        apiService.searchCards(cardName, "exact").enqueue(new retrofit2.Callback<SearchResponse>() {
+            @Override
+            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Intent detailIntent = new Intent(MainActivity.this, CardDetailActivity.class);
+                    detailIntent.putExtra("CARD_RESPONSE", (CharSequence) response.body());
+                    startActivity(detailIntent);
+                } else {
+                    Toast.makeText(MainActivity.this, "Card not found!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "API Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
+
+
+
 }

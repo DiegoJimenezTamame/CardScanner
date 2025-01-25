@@ -4,4 +4,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="scan_magic_card">Scan Magic Card</string>
+    <string name="scan_card">Scan Card</string>
+    <string name="scan">Scan</string>
 </resources>

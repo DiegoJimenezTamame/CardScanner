@@ -7,30 +7,24 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/capturedCardImageView"
+        android:id="@+id/cardImageView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_placeholder" />
+        android:contentDescription="TODO" />
 
     <TextView
+        android:id="@+id/cardNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingTop="8dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/cardTextTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Tap the button below to scan a Magic card."
         android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/scanCardButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/scan_magic_card"
-        android:layout_marginTop="16dp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center" />
 </LinearLayout>
