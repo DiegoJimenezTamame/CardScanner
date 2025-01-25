@@ -15,16 +15,21 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView capturedCardImageView;
-    private CardScannerViewModel viewModel;
+    private final CardScannerViewModel viewModel;
 
     // Permission and camera launchers
     private ActivityResultLauncher<String> permissionLauncher;
     private ActivityResultLauncher<Intent> cameraLauncher;
+
+    public MainActivity(ImageView capturedCardImageView, CardScannerViewModel viewModel) {
+        this.capturedCardImageView = capturedCardImageView;
+        this.viewModel = viewModel;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Button scanCardButton = findViewById(R.id.scanCardButton);
 
         // Initialize ViewModel
-        viewModel = new ViewModelProvider(this).get(CardScannerViewModel.class);
+        //viewModel = new ViewModelProvider(this).get(CardScannerViewModel.class);
 
         // Initialize camera launcher
         cameraLauncher = registerForActivityResult(
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         if (data != null && data.getExtras() != null) {
                             Bitmap cardImage = (Bitmap) data.getExtras().get("data");
                             capturedCardImageView.setImageBitmap(cardImage);
-                            viewModel.processCardImage(cardImage);
+                            viewModel.processCardImage();
                         }
                     }
                 }

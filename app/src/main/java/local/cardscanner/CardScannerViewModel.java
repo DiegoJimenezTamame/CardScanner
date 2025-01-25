@@ -11,7 +11,7 @@ public class CardScannerViewModel extends ViewModel {
     private final MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private final ApiCallManager apiCallManager = new ApiCallManager();
 
-    public void processCardImage(Bitmap cardImage) {
+    public void processCardImage() {
         // Placeholder for image recognition logic
         // This would typically involve ML Kit or another image recognition service
         apiCallManager.searchCard("Example Card", new ApiCallManager.ApiCallback() {
